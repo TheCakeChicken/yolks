@@ -28,7 +28,7 @@ LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolk
 LABEL       org.opencontainers.image.licenses=MIT
 
 RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl openssh sqlite tar tzdata \
-	&& adduser -D -h /home/container container
+	&& adduser -D -h /home/container --uid 997 container
 
 USER        container
 ENV         USER=container HOME=/home/container
