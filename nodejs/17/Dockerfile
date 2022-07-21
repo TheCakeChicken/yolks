@@ -27,8 +27,13 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl openssh sqlite python tar tzdata \
+RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl openssh sqlite tar tzdata \
 	&& adduser -D -h /home/container --uid 997 container
+	
+ENV PYTHONUNBUFFERED=1
+RUN apk add --update --no-cache python3 && ln -sf python3 /usr/bin/python
+RUN python3 -m ensurepip
+RUN pip3 install --no-cache --upgrade pip setuptools
 
 USER        container
 ENV         USER=container HOME=/home/container
