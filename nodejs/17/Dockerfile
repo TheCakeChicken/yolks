@@ -20,23 +20,19 @@
 # SOFTWARE.
 #
 
-FROM        --platform=$TARGETOS/$TARGETARCH node:17
+FROM        --platform=$TARGETOS/$TARGETARCH node:17-alpine
 
 LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apt-get install ca-certificates curl libav-tools git openssl openssh-client sqlite3 tar tzdata \
+RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl openssh sqlite tar tzdata \
 	&& adduser -D -h /home/container --uid 997 container
-	
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends libexpat1-dev libnss3-dev \
-    && apt-get install -y python make g++
 
 USER        container
 ENV         USER=container HOME=/home/container
 WORKDIR     /home/container
 
 COPY        ./../entrypoint.sh /entrypoint.sh
-CMD         [ "/bin/bash", "/entrypoint.sh" ]
+CMD         [ "/bin/ash", "/entrypoint.sh" ]
