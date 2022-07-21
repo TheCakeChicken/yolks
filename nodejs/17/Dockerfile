@@ -31,8 +31,8 @@ RUN         apk add --update --no-cache ca-certificates curl ffmpeg git openssl 
 	&& adduser -D -h /home/container --uid 997 container
 	
 ENV PYTHONUNBUFFERED=1
-RUN apk add --update --no-cache python
-RUN python -m ensurepip
+RUN apk add --update --no-cache python2 && ln -sf python2 /usr/bin/python
+RUN python2 -m ensurepip
 RUN pip install --no-cache --upgrade pip setuptools
 
 USER        container
