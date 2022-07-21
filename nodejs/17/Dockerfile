@@ -27,7 +27,7 @@ LABEL       author="Matthew Penner" maintainer="matthew@pterodactyl.io"
 LABEL       org.opencontainers.image.source="https://github.com/pterodactyl/yolks"
 LABEL       org.opencontainers.image.licenses=MIT
 
-RUN         apt-get install ca-certificates curl ffmpeg git openssl openssh sqlite tar tzdata \
+RUN         apt-get install ca-certificates curl libav-tools git openssl openssh-client sqlite3 tar tzdata \
 	&& adduser -D -h /home/container --uid 997 container
 	
 RUN apt-get update \
